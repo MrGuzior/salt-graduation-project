@@ -1,0 +1,20 @@
+{
+  "name": "salt-graduation-project",
+  "version": "1.0.0",
+  "description": "Graduation project for salt school of applied technology",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrGuzior/salt-graduation-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrGuzior/salt-graduation-project/issues"
+  },
+  "homepage": "https://github.com/MrGuzior/salt-graduation-project#readme"
+}
