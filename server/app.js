@@ -1,16 +1,15 @@
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
+const cors = require("cors");
 
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-
 const app = express();
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -38,8 +37,5 @@ app.use('/graphql', graphqlHTTP({
     rootValue: root,
     graphiql: true,
 }))
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 module.exports = app;
