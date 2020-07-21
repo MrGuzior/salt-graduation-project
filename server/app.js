@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 const schema = buildSchema(`
     type Query {
         hello: String,
@@ -31,6 +32,7 @@ const root = {
         return 'Goodbye world!'
     }
 };
+
 
 app.use('/graphql', graphqlHTTP({
     schema: schema,

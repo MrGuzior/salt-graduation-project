@@ -10,9 +10,11 @@ import Home from './Home';
 import About from './About';
 import Login from './Login';
 import Profile from './Profile';
+import Waste from './Waste';
 
 
-export default function Nav() {
+export default function Nav(props) {
+    console.log('nav');
     return (
         <Router>
             <div>
@@ -26,6 +28,9 @@ export default function Nav() {
                         </li>
                         <li>
                             <Link to='/profile'>Profile</Link>
+                        </li>
+                        <li>
+                            <Link to='/waste'>Log waste</Link>
                         </li>
                         <li>
                             <Link to='/about'>About</Link>
@@ -42,6 +47,9 @@ export default function Nav() {
                 </Route>
                 <Route exact path='/profile'>
                     <Profile />
+                </Route>
+                <Route exact path='/waste'>
+                    <Waste userCookie={props.userCookie}/>
                 </Route>
                 <Route exact path='/'>
                     <Home />
