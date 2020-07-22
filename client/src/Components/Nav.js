@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -11,33 +12,40 @@ import About from './About';
 import Login from './Login';
 import Profile from './Profile';
 import Waste from './Waste';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Navbar } from 'react-bootstrap';
 
 
 export default function Nav(props) {
     console.log('nav');
     return (
         <Router>
+
             <div>
                 <nav>
-                    <ul>
-                        <li>
-                            <Link to='/'>Home</Link>
-                        </li>
-                        <li>
-                            <Link to='/login'>Login</Link>
-                        </li>
-                        <li>
-                            <Link to='/profile'>Profile</Link>
-                        </li>
-                        <li>
-                            <Link to='/waste'>Log waste</Link>
-                        </li>
-                        <li>
-                            <Link to='/about'>About</Link>
-                        </li>
-                    </ul>
+                    <Navbar>
+                        <ul className="navlinks">
+                            <li>
+                                <Link to='/'>Home</Link>
+                            </li>
+                            <li>
+                                <Link to='/login'>Login</Link>
+                            </li>
+                            <li>
+                                <Link to='/profile'>Profile</Link>
+                            </li>
+                            <li>
+                                <Link to='/waste'>Log waste</Link>
+                            </li>
+                            <li>
+                                <Link to='/about'>About</Link>
+                            </li>
+                        </ul>
+                    </Navbar>
+
                 </nav>
             </div>
+
             <Switch>
                 <Route exact path='/about'>
                     <About />
@@ -49,7 +57,7 @@ export default function Nav(props) {
                     <Profile />
                 </Route>
                 <Route exact path='/waste'>
-                    <Waste userCookie={props.userCookie}/>
+                    <Waste userCookie={props.userCookie} />
                 </Route>
                 <Route exact path='/'>
                     <Home />

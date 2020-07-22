@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+.navbar {
+  background-color: green;
+}
+
+.navlinks {
+  padding: 1% 2%;
+  width: 100%;
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.navlinks a {
+  color: white;
+}
+
+.home-canvas {
+  margin: 2% auto;
+  max-width: 60%;
+  max-height: 40%;
+}
