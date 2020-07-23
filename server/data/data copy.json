@@ -72,18 +72,6 @@
 						"type": "plastic"
 					}
 				]
-			},
-			{
-				"id": "353",
-				"name": "Mr. Test",
-				"waste_history": [
-					{
-						"date": "tomorrow",
-						"amount": "4",
-						"type": "Paper",
-						"userId": "353"
-					}
-				]
 			}
 		]
 	},

@@ -22,7 +22,39 @@ app.use(express.static(path.join(__dirname, 'public')));
 const schema = buildSchema(`
     type Query {
         users: [User],
-        user(id: String): User
+        user(id: String): User,
+        global: [Global],
+        discarded: [Discarded],
+        incinerated: [Incinerated],
+        recycled: [Recycled],
+        news: [News]
+    }
+
+    type News{
+        date: String,
+        heading: String,
+        text: String,
+        source: String
+    }
+
+    type Discarded{
+        year: String,
+        tonnes: String
+    }
+
+    type Incinerated{
+        year: String,
+        tonnes: String
+    }
+
+    type Recycled{
+        year: String,
+        tonnes: String
+    }
+
+    type Global {
+            year: String,
+            tonnes: String
     }
 
     type User {
@@ -48,6 +80,21 @@ const root = {
     id: () => {
         return data.data.users[0].id;
     },
+    global: () => {
+        return data.global;
+    },
+    discarded: () => {
+        return data.discarded;
+    },
+    incinerated: () => {
+        return data.incinerated;
+    },
+    recycled: () => {
+        return data.recycled;
+    },
+    news: () => {
+        return data.news;
+    }
 };
 
 app.use('/graphql', graphqlHTTP({

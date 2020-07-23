@@ -77,28 +77,32 @@ export default class Waste extends React.Component {
 
     render() {
         return (
-            <div>
-                <p>Today I threw out {this.state.inputFields.amount} kg trash:</p>
-                <form onSubmit={this.addWasteToStorage}>
-                    <label>
-                        kg:
-                        <input type="number" name="wasteKg" onChange={this.updateInputField}></input>
-                    </label>
-                    <label>
-                        type:
-                        <select onChange={this.updateSelectType} value={this.state.inputFields.type}>
-                            <option value="plastic">Plastic</option>
-                            <option value="paper">Paper</option>
-                            <option value="glass">Glass</option>
-                            <option value="metal">Metal</option>
-                            <option value="organic">Organic</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </label>
-                    <input type="submit" value="Submit"></input>
-                </form>
-                <p>Total amount of waste {this.state.totalAmountWaste}</p>
-            </div>
+            <section>
+                <div>
+                    <h1>Today I threw out {this.state.inputAmount} kg trash:</h1>
+                    <form onSubmit={this.addWasteToStorage}>
+                        <div className="waste-form">
+                            <label>
+                                Kg:
+                                <input type="number" name="wasteKg" onChange={this.updateInputField}></input>
+                            </label>
+                            <label>
+                                type:
+                                <select onChange={this.updateSelectType} value={this.state.inputType}>
+                                    <option value="plastic">Plastic</option>
+                                    <option value="paper">Paper</option>
+                                    <option value="glass">Glass</option>
+                                    <option value="metal">Metal</option>
+                                    <option value="organic">Organic</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </label>
+                        </div>
+                        <input type="submit" value="Submit" className="home-btn"></input>
+                    </form>
+                    <h2>Total amount of waste {this.state.totalAmountWaste}</h2>
+                </div>
+            </section>
         )
     }
 

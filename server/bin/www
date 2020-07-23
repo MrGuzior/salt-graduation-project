@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-const app = require('../app');
+const app = require('../app-copy');
 const debug = require('debug')('server:server');
 const https = require('https');
 const fs = require('fs');
@@ -24,7 +24,7 @@ const server = https.createServer({
   key: fs.readFileSync('./certificates/server.key'),
   cert: fs.readFileSync('./certificates/server.crt'),
   passphrase: 'quack',
-},app);
+}, app);
 
 /**
  * Listen on provided port, on all network interfaces.

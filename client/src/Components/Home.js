@@ -1,6 +1,7 @@
 import React from 'react';
 import Chart from "chart.js";
 import { Link } from "react-router-dom";
+import News from './News';
 const { createApolloFetch } = require('apollo-fetch');
 
 let searchID = "6789";
@@ -31,6 +32,28 @@ const userData = (callback) => {
             amount
         }
       }
+      global{
+          year
+          tonnes
+      }
+      discarded{
+        year
+        tonnes
+      }
+      incinerated{
+        year
+        tonnes
+      }
+      recycled{
+        year
+        tonnes
+      }
+      news{
+          date
+          heading
+          text
+          source
+      }
     }`,
         variables: { id: searchID },
     }).then(res => {
@@ -42,30 +65,122 @@ const userData = (callback) => {
 class Home extends React.Component {
     constructor(props) {
         super(props)
-        this.chartRef = React.createRef();
+        this.globalChartRef = React.createRef();
+        this.recycleChartRef = React.createRef();
+        this.state = {
+            news: []
+        }
     }
 
     componentDidMount() {
-        const data = userData((userdata) => {
+        userData((data) => {
             let wasteAmount = [];
             let wasteDate = [];
-            userdata.users[0].waste_history.forEach(element => {
-                wasteAmount.push(element.amount);
-                wasteDate.push(element.date);
+            let recycleYears = [];
+            let recycledPlastic = [];
+            let incineratedPlastic = [];
+            let discardedPlastic = [];
+            this.setState({ news: data.news })
+
+            data.global.forEach(element => {
+                wasteAmount.push(element.tonnes);
+                wasteDate.push(element.year);
             });
 
-            this.myChart = new Chart(this.chartRef.current, {
-                type: 'bar',
+            data.discarded.forEach(element => {
+                discardedPlastic.push(element.tonnes);
+            });
+
+            data.incinerated.forEach(element => {
+                incineratedPlastic.push(element.tonnes);
+            });
+            data.recycled.forEach(element => {
+                recycleYears.push(element.year);
+                recycledPlastic.push(element.tonnes);
+            });
+
+            this.globalChart = new Chart(this.globalChartRef.current, {
+                type: 'line',
                 data: {
                     labels: wasteDate,
                     datasets: [{
-                        label: 'Amount of plastic waste',
+                        label: 'Global plastics production in tonnes',
                         data: wasteAmount,
-                        backgroundColor: '#46bd66'
+                        backgroundColor: '#46bd66',
+                        borderWidth: 0.5
                     }]
                 },
                 options: {
-                    //Customize chart options
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    animation: {
+                        duration: 0
+                    },
+                    elements: {
+                        point: {
+                            radius: 0
+                        }
+                    },
+                    tooltips: {
+                        intersect: false,
+                        mode: 'label'
+                    }
+                }
+            });
+
+
+
+            this.recycleChart = new Chart(this.recycleChartRef.current, {
+                type: 'line',
+                data: {
+                    labels: recycleYears,
+                    datasets: [{
+                        label: 'Recycled',
+                        data: recycledPlastic,
+                        backgroundColor: '#46bd66',
+                        borderWidth: 0.5
+                    },
+                    {
+                        label: 'Incinerated',
+                        data: incineratedPlastic,
+                        backgroundColor: '#fc5603',
+                        borderWidth: 0.5
+                    },
+                    {
+                        label: 'Discarded',
+                        data: discardedPlastic,
+                        backgroundColor: '#919191',
+                        borderWidth: 0.5
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                callback: (value, index, values) => {
+                                    return value + " %";
+                                }
+                            }
+                        }]
+                    },
+                    animation: {
+                        duration: 0
+                    },
+                    elements: {
+                        point: {
+                            radius: 0
+                        }
+                    },
+                    tooltips: {
+                        intersect: false,
+                        mode: 'label'
+                    }
                 }
             });
         });
@@ -74,15 +189,24 @@ class Home extends React.Component {
     render() {
         return (
             <div className="home-container">
-                <section>
+                <section className="intro-section">
                     <div className="home-intro">
                         <h1>Welcome back Konrad!</h1>
                         <h2>Start tracking your trash</h2>
                         <button className="home-btn"><Link to='/waste'>Track your trash</Link></button>
                     </div>
                 </section>
-                <section>
-                    <canvas ref={this.chartRef} className='home-canvas'></canvas>
+                <section className="news-section">
+                    <News news={this.state.news[0]} />
+                    <News news={this.state.news[1]} />
+                    <News news={this.state.news[2]} />
+                    <News news={this.state.news[3]} />
+                    <News news={this.state.news[4]} />
+                    <News news={this.state.news[5]} />
+                </section>
+                <section className='chart-container'>
+                    <canvas ref={this.globalChartRef} className='home-canvas global'></canvas>
+                    <canvas ref={this.recycleChartRef} className='home-canvas recycle'></canvas>
                 </section>
             </div>)
     }
