@@ -13,7 +13,7 @@ import Login from './Login';
 import Profile from './Profile';
 import Waste from './Waste';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Nav as Bnav } from 'react-bootstrap';
 
 
 export default function Nav(props) {
@@ -23,26 +23,22 @@ export default function Nav(props) {
 
             <div>
                 <nav>
-                    <Navbar>
-                        <ul className="navlinks">
-                            <li>
-                                <Link to='/'>Home</Link>
-                            </li>
-                            <li>
-                                <Link to='/login'>Login</Link>
-                            </li>
-                            <li>
-                                <Link to='/profile'>Profile</Link>
-                            </li>
-                            <li>
-                                <Link to='/waste'>Log waste</Link>
-                            </li>
-                            <li>
-                                <Link to='/about'>About</Link>
-                            </li>
-                        </ul>
-                    </Navbar>
-
+                    <div>
+                        <Navbar bg="light" expand="lg">
+                            <Navbar.Toggle aria-controls="basic-navbar-nav" className="ml-auto" />
+                            <Navbar.Collapse id="basic-navbar-nav" >
+                                <Bnav className="mr-auto">
+                                    <Bnav.Link href="/">Home</Bnav.Link>
+                                    <Bnav.Link href="/waste">Log waste</Bnav.Link>
+                                    <Bnav.Link href="/about">About</Bnav.Link>
+                                </Bnav>
+                                <Bnav className="ml-auto">
+                                    <Bnav.Link href="/login">Login</Bnav.Link>
+                                    <Bnav.Link href="/profile">Profile</Bnav.Link>
+                                </Bnav>
+                            </Navbar.Collapse>
+                        </Navbar>
+                    </div>
                 </nav>
             </div>
 
@@ -66,4 +62,3 @@ export default function Nav(props) {
         </Router>
     )
 }
-

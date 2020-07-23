@@ -1,5 +1,6 @@
 import React from 'react';
 import Chart from "chart.js";
+import { Link } from "react-router-dom";
 const { createApolloFetch } = require('apollo-fetch');
 
 let searchID = "6789";
@@ -58,9 +59,9 @@ class Home extends React.Component {
                 data: {
                     labels: wasteDate,
                     datasets: [{
-                        label: 'My data',
+                        label: 'Amount of plastic waste',
                         data: wasteAmount,
-                        backgroundColor: '#112233'
+                        backgroundColor: '#46bd66'
                     }]
                 },
                 options: {
@@ -73,8 +74,16 @@ class Home extends React.Component {
     render() {
         return (
             <div className="home-container">
-                <p>This is home</p>
-                <canvas ref={this.chartRef} className='home-canvas'></canvas>
+                <section>
+                    <div className="home-intro">
+                        <h1>Welcome back Konrad!</h1>
+                        <h2>Start tracking your trash</h2>
+                        <button className="home-btn"><Link to='/waste'>Track your trash</Link></button>
+                    </div>
+                </section>
+                <section>
+                    <canvas ref={this.chartRef} className='home-canvas'></canvas>
+                </section>
             </div>)
     }
 }

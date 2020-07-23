@@ -59,3 +59,8 @@
   max-width: 60%;
   max-height: 40%;
 }
+
+.login {
+  display: flex;
+  justify-content: end;
+}
