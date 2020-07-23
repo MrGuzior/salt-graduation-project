@@ -1,0 +1,48 @@
+{
+	"data": {
+		"users": [
+			{
+				"id": "12345",
+				"name": "John Doe",
+				"waste_history": [
+					{
+						"date": "22-07-2020",
+						"amount": "20",
+						"type": "plastic"
+					},
+					{
+						"date": "02-07-2020",
+						"amount": "5",
+						"type": "plastic"
+					},
+					{
+						"date": "10-07-2020",
+						"amount": "6",
+						"type": "plastic"
+					}
+				]
+			},
+			{
+				"id": "6789",
+				"name": "Jane Doe",
+				"waste_history": [
+					{
+						"date": "22-06-2020",
+						"amount": "4",
+						"type": "plastic"
+					},
+					{
+						"date": "05-07-2020",
+						"amount": "70",
+						"type": "plastic"
+					},
+					{
+						"date": "10-07-2020",
+						"amount": "40",
+						"type": "plastic"
+					}
+				]
+			}
+		]
+	}
+}
