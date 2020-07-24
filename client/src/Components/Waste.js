@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCookies } from 'react-cookie';
+import {Form} from 'react-bootstrap';
 
 
 export default class Waste extends React.Component {
@@ -80,8 +80,9 @@ export default class Waste extends React.Component {
             <section>
                 <div>
                     <h1>Today I threw out {this.state.inputAmount} kg trash:</h1>
-                    <form onSubmit={this.addWasteToStorage}>
+                    <Form onSubmit={this.addWasteToStorage}>
                         <div className="waste-form">
+                        <Form.Group></Form.Group>
                             <label>
                                 Kg:
                                 <input type="number" name="wasteKg" onChange={this.updateInputField}></input>
@@ -99,7 +100,7 @@ export default class Waste extends React.Component {
                             </label>
                         </div>
                         <input type="submit" value="Submit" className="home-btn"></input>
-                    </form>
+                    </Form>
                     <h2>Total amount of waste {this.state.totalAmountWaste}</h2>
                 </div>
             </section>

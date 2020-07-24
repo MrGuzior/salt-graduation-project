@@ -29,7 +29,7 @@ export default function Nav(props) {
                             <Navbar.Toggle aria-controls="basic-navbar-nav" className="ml-auto" />
                             <Navbar.Collapse id="basic-navbar-nav" >
                                 <Bnav className="mr-auto">
-                                    <Bnav.Link href="/">Home</Bnav.Link>
+                                    <Bnav.Link href="/" id="logo">WASTr</Bnav.Link>
                                     <Bnav.Link href="/waste">Log waste</Bnav.Link>
                                     <Bnav.Link href="/about">About</Bnav.Link>
                                 </Bnav>

@@ -107,3 +107,9 @@ label > select {
 .footer-container{
   background-color: white;
 }
+
+#logo {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.5em;
+  color: #34a151 !important;
+}

@@ -187,6 +187,7 @@ class Home extends React.Component {
     }
 
     render() {
+        console.log(this.state.news[0])
         return (
             <div className="home-container">
                 <section className="intro-section">
