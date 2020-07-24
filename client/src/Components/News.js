@@ -7,9 +7,11 @@ class News extends React.Component {
     render() {
         if (this.props.news) {
             return (
-                <div className="news">
-                    <h3 className="news-heading">{this.props.news.heading}</h3>
-                    <p className="news-text">{this.props.news.text}</p>
+                <div className="news" >
+                    <a href={this.props.news.source} className="news-link">
+                        <h3 className="news-heading">{this.props.news.heading}</h3>
+                        <p className="news-text">{this.props.news.text} <span style={{ fontStyle: "italic" }}>...read more</span></p>
+                    </a>
                 </div>
             )
         } else {

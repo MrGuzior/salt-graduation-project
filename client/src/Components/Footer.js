@@ -7,10 +7,30 @@ const Footer = () => {
 			<MDBContainer fluid className="text-center text-md-left">
 				<MDBRow>
 					<MDBCol md="6">
-						<h5 className="title"></h5>
-						<p>
-
-						</p>
+						<h5 className="title">WASTr</h5>
+						<ul>
+							<li className="list-unstyled">
+								<a href="/">Home</a>
+							</li>
+							<li className="list-unstyled">
+								<a href="/waste">Log waste</a>
+							</li>
+							<li className="list-unstyled">
+								<a href="/profile">Profile</a>
+							</li>
+							<li className="list-unstyled">
+								<a href="/news">News</a>
+							</li>
+							<li className="list-unstyled">
+								<a href="/tips">Tips</a>
+							</li>
+							<li className="list-unstyled">
+								<a href="/about">About</a>
+							</li>
+							<li className="list-unstyled">
+								<a href="/contact">Contact us</a>
+							</li>
+						</ul>
 					</MDBCol>
 					<MDBCol md="6">
 						<h5 className="title">Sources:</h5>

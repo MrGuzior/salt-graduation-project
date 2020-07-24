@@ -187,26 +187,39 @@ class Home extends React.Component {
     }
 
     render() {
-        console.log(this.state.news[0])
         return (
             <div className="home-container">
                 <section className="intro-section">
                     <div className="home-intro">
-                        <h1>Welcome back Konrad!</h1>
-                        <h2>Start tracking your trash</h2>
-                        <button className="home-btn"><Link to='/waste'>Track your trash</Link></button>
+                        <h1>Track your waste with <span style={{ color: '#34a151' }}>WASTr</span></h1>
+                        <h2>Recycling takes little effort on your part, for a big difference to our world.</h2>
+                        <Link to='/waste'><button className="home-btn">Make a difference</button></Link>
                     </div>
                 </section>
-                <section className="news-section">
+                <section className="steps-section">
+                    <h2>Three easy steps</h2>
+                    <ul className="steps-list">
+                        <li>Track the ammount of waste</li>
+                        <li>Get better at recycling</li>
+                        <li>Set personal goals</li>
+                    </ul>
+                </section>
+                <h2>News</h2>
+                <section className="news-section" name="news">
                     <News news={this.state.news[0]} />
-                    <News news={this.state.news[1]} />
-                    <News news={this.state.news[2]} />
                     <News news={this.state.news[3]} />
+                    <News news={this.state.news[2]} />
+                </section>
+                <section className='chart-container'>
+                    <canvas ref={this.globalChartRef} className='home-canvas global'></canvas>
+                </section>
+                <h2>Technology</h2>
+                <section className="news-section technology-section">
+                    <News news={this.state.news[1]} />
                     <News news={this.state.news[4]} />
                     <News news={this.state.news[5]} />
                 </section>
                 <section className='chart-container'>
-                    <canvas ref={this.globalChartRef} className='home-canvas global'></canvas>
                     <canvas ref={this.recycleChartRef} className='home-canvas recycle'></canvas>
                 </section>
             </div>)

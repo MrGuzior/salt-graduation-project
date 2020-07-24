@@ -6,47 +6,47 @@
 				"name": "John Doe",
 				"waste_history": [
 					{
-						"date": "1-07-2020",
+						"date": "20-07-2020",
 						"amount": "3",
 						"type": "plastic"
 					},
 					{
-						"date": "02-07-2020",
+						"date": "21-07-2020",
 						"amount": "2.8",
 						"type": "plastic"
 					},
 					{
-						"date": "3-07-2020",
+						"date": "22-07-2020",
 						"amount": "3",
 						"type": "plastic"
 					},
 					{
-						"date": "4-07-2020",
+						"date": "23-07-2020",
 						"amount": "2.7",
 						"type": "plastic"
 					},
 					{
-						"date": "5-07-2020",
+						"date": "24-07-2020",
 						"amount": "2.3",
 						"type": "plastic"
 					},
 					{
-						"date": "6-07-2020",
+						"date": "25-07-2020",
 						"amount": "2.2",
 						"type": "plastic"
 					},
 					{
-						"date": "7-07-2020",
+						"date": "26-07-2020",
 						"amount": "1.9",
 						"type": "plastic"
 					},
 					{
-						"date": "8-07-2020",
+						"date": "27-07-2020",
 						"amount": "1.7",
 						"type": "plastic"
 					},
 					{
-						"date": "9-07-2020",
+						"date": "28-07-2020",
 						"amount": "1.8",
 						"type": "plastic"
 					}
@@ -247,13 +247,13 @@
 		{
 			"date": "22-07-2020",
 			"heading": "Bright Green Plastics invests in new sorting technology",
-			"text": "Bright Green Plastics, a plastics reprocessing business that’s based in the U.K., has invested 750,000 pounds into the development of a new plastics sorting plant...",
+			"text": "Bright Green Plastics, a plastics reprocessing business that’s based in the U.K., has invested 750,000 pounds into the development of a new plastics sorting plant",
 			"source": "www.recyclingtoday.com"
 		},
 		{
 			"date": "15-07-2020",
 			"heading": "Closed Loop Partners program to research advanced recycling technologies",
-			"text": "Closed Loop Partners, New York, and its Center for the Circular Economy are launching the Advanced Recycling Innovator Program (ARIP)...",
+			"text": "Closed Loop Partners, New York, and its Center for the Circular Economy are launching the Advanced Recycling Innovator Program (ARIP)",
 			"source": "www.recyclingtoday.com"
 		},
 		{
@@ -265,7 +265,7 @@
 		{
 			"date": "22-07-2020",
 			"heading": "Commentary: Absence of scrap makes the world grow fonder",
-			"text": "Epidemic-related and political restrictions in scrap supply have helped demonstrate the value of secondary commodities.“Scrap is a product of affluence,”",
+			"text": "Epidemic-related and political restrictions in scrap supply have helped demonstrate the value of secondary commodities.“Scrap is a product of affluence”",
 			"source": "www.recyclingtoday.com"
 		},
 		{
