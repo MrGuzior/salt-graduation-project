@@ -109,14 +109,17 @@ const Mutation = new GraphQLObjectType({
 					type: args.type,
 					userId: args.userId
 				}
+				console.log(data.data.users[0].waste_history)
 				const newArr = data.data.users.map(user => {
 					if (user.id === args.userId) {
-						const wasteArr = user.waste_history ? [{ ...user.waste }, waste] : [waste];
+						const wasteArr = user.waste_history ? [ ...user.waste_history , waste] : [waste];
+						console.log(wasteArr)
 						return { ...user, waste_history: wasteArr }
 					}
 					return { ...user }
 				})
 				data.data.users = newArr;
+				console.log(newArr[0].waste_history)
 				const newData = JSON.stringify(data);
 				fs.writeFileSync('./data/data.json', newData, 'utf-8');
 				return args;

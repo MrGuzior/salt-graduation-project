@@ -1,32 +1,53 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import UserGraph from './UserGraph';
+import { gql } from "apollo-boost";
+import {graphql} from 'react-apollo';
+import {flowRight as compose } from 'lodash';
 const { createApolloFetch } = require('apollo-fetch');
+const moment = require('moment');
 
 
 let searchID = "12345";
 
-const fetch = createApolloFetch({
-    uri: 'https://localhost:8080/graphql'
-})
-const getUserData = (callback) => {
-    fetch({
-        query: `query ($id: String!){
-            user(id: $id){
-              id  
-              name
-              waste_history{
-                  type
-                  date
-                  amount
-              }
+const getUserQuery = gql`
+    query($id: String!){
+        user(id: $id){
+            id  
+            name
+            waste_history{
+                type
+                date
+                amount
             }
-        }`,
-        variables: { id: searchID },
-    }).then(res => {
-        callback(res.data)
-    })
-};
+        }
+}`;
+
+
+
+// const fetch = createApolloFetch({
+//     uri: 'https://localhost:8080/graphql'
+// })
+
+
+// const getUserData = (callback) => {
+//     fetch({
+//         query: `query ($id: String!){
+//             user(id: $id){
+//               id  
+//               name
+//               waste_history{
+//                   type
+//                   date
+//                   amount
+//               }
+//             }
+//         }`,
+//         variables: { id: searchID },
+//     }).then(res => {
+//         callback(res.data)
+//     })
+// };
 
 // const addUserData = (date, type, amount) => {
 //     fetch({
@@ -38,15 +59,16 @@ const getUserData = (callback) => {
 //         variables: { date: date, type: type, amount: amount, id: searchID },
 //     }).then(res => console.log(res.data))
 // };
-// const addUserData = gql`
-//     mutation Waste($id: String!) {
-//         addWaste(input: {date: $date, type: $type, amount: $amount, userId: $id}) {
-//             date
-//         }
-//     }
-// `
 
-export default class Waste extends React.Component {
+const addWasteMutation = gql`
+		mutation($date: String!, $wasteType: String!, $wasteAmount: String!, $userId: String!){
+			addWaste(date: $date, type: $wasteType, amount: $wasteAmount, userId: $userId) {
+				date
+			}
+		}
+`;
+
+class Waste extends React.Component {
     constructor(props) {
         super(props)
         this.updateInputField = this.updateInputField.bind(this)
@@ -64,7 +86,8 @@ export default class Waste extends React.Component {
             totalAmountWaste: 0,
             wasteStorage: null,
             wasteDate: [],
-            wasteAmount: []
+            wasteAmount: [],
+            fetched: false,
         }
 
     }
@@ -90,11 +113,11 @@ export default class Waste extends React.Component {
     }
 
     addWasteToStorage(e) {
-        e.preventDefault();
+       e.preventDefault();
         const { userID } = this.state;
         const userWasteStorage = JSON.parse(window.localStorage.getItem(userID)) || [];
 
-        const timeStamp = Date(Date.now()); 
+        const timeStamp = moment(Date.now()).format('MM DD YYYY');
         const type = this.state.inputType;
         const amount = this.state.inputAmount;
 
@@ -102,7 +125,17 @@ export default class Waste extends React.Component {
             timeStamp,
             type,
             amount
-        }
+				}
+				
+		this.props.addWasteMutation({
+            variables: {
+                date: timeStamp.toString(),
+                wasteType: type,
+                wasteAmount: amount,
+                userId: searchID
+            },
+            refetchQueries: [{query: getUserQuery}]
+        });
 
         if (amount !== '0' && amount !== '') {
             window.localStorage.setItem(userID, JSON.stringify([...userWasteStorage, newWaste]));
@@ -117,20 +150,24 @@ export default class Waste extends React.Component {
         this.setState({ totalAmountWaste: this.sumWaste() })
     }
 
-    componentDidUpdate() {
-    }
+    getUserData = data => {
+        const amount = data.waste_history.map(obj => obj.amount)
+        const date = data.waste_history.map(obj => obj.date)
 
-    componentDidMount() {
-        getUserData(data => {
-            const wasteAmount = data.user.waste_history.map(obj => obj.amount)
-            const wasteDate = data.user.waste_history.map(obj => obj.date)
-
-            this.setState({ wasteAmount })
-            this.setState({ wasteDate })
-        });
-    }
-
+        this.setState({
+            wasteAmount : amount,
+            wasteDate : date,
+            fetched: !this.state.fetched
+        })
+        // this.setState({ wasteDate : date})
+        console.log('quack');
+    };
+    
     render() {
+        if(this.props.data.user && !this.state.fetched){
+            
+            this.getUserData(this.props.data.user)
+        }
         return (
             <div>
                 <section>
@@ -163,10 +200,22 @@ export default class Waste extends React.Component {
                         <h2>Total amount of waste {this.state.totalAmountWaste}</h2>
                     </div>
                 </section>
-                {this.state.wasteAmount[0] && this.state.wasteDate[0] ? <UserGraph wasteAmount={this.state.wasteAmount} wasteDate={this.state.wasteDate} userID={searchID}/> : null}
+                {this.state.wasteAmount[0] && this.state.wasteDate[0] ? <UserGraph wasteAmount={this.state.wasteAmount} wasteDate={this.state.wasteDate} /> : null}
 
             </div>
         )
     }
 
 }
+export default compose(
+	graphql(getUserQuery,{options: () => {
+        return {
+            variables: {
+                id: searchID
+            }
+        }
+    }}, {name: "getUserQuery"}),
+	graphql(addWasteMutation, {name: "addWasteMutation"})
+)(Waste);
+
+// export default graphql(addWasteMutation, {name: "addWasteMutation"})(Waste);
