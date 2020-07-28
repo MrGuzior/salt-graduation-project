@@ -11,7 +11,7 @@ import Home from './Home';
 import About from './About';
 import Login from './Login';
 import Profile from './Profile';
-import Waste from './Waste-copy';
+import Waste from './Waste';
 import Footer from './Footer'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav as Bnav } from 'react-bootstrap';

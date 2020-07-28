@@ -14,7 +14,7 @@ let data = JSON.parse(fs.readFileSync('./data/data.json', 'utf-8'));
 const UserType = new GraphQLObjectType({
 	name: 'User',
 	fields: () => ({
-		id: { type: GraphQLID },
+		id: { type: GraphQLString },
 		name: { type: GraphQLString },
 		waste_history: {
 			type: new GraphQLList(WasteType)
@@ -80,17 +80,19 @@ const Mutation = new GraphQLObjectType({
 		addUser: {
 			type: UserType,
 			args: {
-				id: { type: GraphQLID },
-				name: { type: GraphQLString }
+				id: { type: GraphQLString },
+				name: { type: GraphQLString },
 			},
 			resolve(parent, args) {
 				let user = {
 					id: args.id,
-					name: args.name
+					name: args.name,
+					waste_history: [],
 				}
 				data.data.users = [...data.data.users, user];
 				const newData = JSON.stringify(data);
 				fs.writeFileSync('./data/data.json', newData, 'utf-8');
+				console.log(user);
 				return user;
 			}
 		},
