@@ -170,3 +170,8 @@ li.list-group-item {
 .list-item-form span{
   margin: 3px;
 }
+
+.about-container{
+  margin:7% auto;
+  width: 50%;
+}

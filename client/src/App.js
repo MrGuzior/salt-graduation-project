@@ -18,7 +18,7 @@ const addUserMutation = gql`
 function App(props) {
   const id = uuid.v4();
   const [cookies, setCookie] = useCookies(['wastr_session']);
-  const cookie = cookies.wastr_session;
+  //const cookie = cookies.wastr_session;
 
   if (!cookies.wastr_session) {
     setCookie('wastr_session', id, { path: '/' });

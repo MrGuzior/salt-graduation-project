@@ -21,6 +21,10 @@ const updateWasteMutation = gql`
 		}
 `;
 
+const createGraph = () => {
+
+}
+
 class UserGraph extends React.Component {
     constructor(props) {
         super(props)

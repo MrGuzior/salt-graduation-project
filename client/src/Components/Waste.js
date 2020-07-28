@@ -80,7 +80,7 @@ class Waste extends React.Component {
         const { userID } = this.state;
         const userWasteStorage = JSON.parse(window.localStorage.getItem(userID)) || [];
 
-        const timeStamp = moment(Date.now()).format('MM DD YYYY');
+        const timeStamp = moment(Date.now()).format('MM/DD-YYYY');
         const type = this.state.inputType;
         const amount = this.state.inputAmount;
 

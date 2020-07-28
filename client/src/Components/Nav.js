@@ -10,12 +10,10 @@ import {
 import Home from './Home';
 import About from './About';
 import Login from './Login';
-import Profile from './Profile';
 import Waste from './Waste';
 import Footer from './Footer'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav as Bnav } from 'react-bootstrap';
-
 
 export default function Nav(props) {
     console.log('nav');
@@ -35,7 +33,6 @@ export default function Nav(props) {
                                 </Bnav>
                                 <Bnav className="ml-auto">
                                     <Bnav.Link href="/login">Login</Bnav.Link>
-                                    <Bnav.Link href="/profile">Profile</Bnav.Link>
                                 </Bnav>
                             </Navbar.Collapse>
                         </Navbar>
@@ -49,9 +46,6 @@ export default function Nav(props) {
                 </Route>
                 <Route exact path='/login'>
                     <Login />
-                </Route>
-                <Route exact path='/profile'>
-                    <Profile />
                 </Route>
                 <Route exact path='/waste'>
                     <Waste userCookie={props.userCookie} />
