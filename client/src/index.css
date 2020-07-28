@@ -91,6 +91,17 @@ h1, h2 {
   margin-bottom: 5%;
 }
 
+.list-btn {
+  background-color: #34a151;
+  border-style: none;
+  color: white;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 0px 0px 5px -2px rgba(0,0,0,0.75);
+  transition: transform .1s ease-in-out;
+  margin:2px;
+}
+
 .home-btn:hover {
   transform: scale(1.1);
 }
@@ -145,4 +156,17 @@ div.form-group {
 .steps-list{
   text-align: left;
   font-size: 1.3em;
+}
+
+.chart-container-user {
+  display: flex;
+  flex-direction: column;
+}
+
+li.list-group-item {
+  margin: 2px 0;
+}
+
+.list-item-form span{
+  margin: 3px;
 }

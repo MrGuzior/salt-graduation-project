@@ -109,22 +109,75 @@ const Mutation = new GraphQLObjectType({
 					type: args.type,
 					userId: args.userId
 				}
-				console.log(data.data.users[0].waste_history)
 				const newArr = data.data.users.map(user => {
 					if (user.id === args.userId) {
-						const wasteArr = user.waste_history ? [ ...user.waste_history , waste] : [waste];
-						console.log(wasteArr)
+						const wasteArr = user.waste_history ? [...user.waste_history, waste] : [waste];
 						return { ...user, waste_history: wasteArr }
 					}
 					return { ...user }
 				})
 				data.data.users = newArr;
-				console.log(newArr[0].waste_history)
 				const newData = JSON.stringify(data);
 				fs.writeFileSync('./data/data.json', newData, 'utf-8');
 				return args;
 			}
-		}
+		},
+		removeWaste: {
+			type: WasteType,
+			args: {
+				userId: { type: GraphQLString },
+				date: { type: GraphQLString }
+			},
+			resolve(parent, args) {
+				console.log(data.data.users[0].waste_history)
+				const newArr = data.data.users.map(user => {
+					if (user.id === args.userId) {
+						const newWasteArr = user.waste_history.filter(waste => waste.date !== args.date);
+						console.log(newWasteArr)
+						return { ...user, waste_history: newWasteArr }
+					}
+					return { ...user }
+				})
+				data.data.users = newArr;
+				const newData = JSON.stringify(data);
+				fs.writeFileSync('./data/data.json', newData, 'utf-8');
+				return args;
+			}
+		},
+		updateWaste: {
+			type: WasteType,
+			args: {
+				date: { type: GraphQLString },
+				amount: { type: GraphQLString },
+				type: { type: GraphQLString },
+				userId: { type: GraphQLString }
+			},
+			resolve(parent, args) {
+				let wasteObj = {
+					date: args.date,
+					amount: args.amount,
+					type: args.type,
+					userId: args.userId
+				}
+
+				const newArr = data.data.users.map(user => {
+					if (user.id === args.userId) {
+						const newWasteArr = user.waste_history.map(waste => {
+							if (waste.date === args.date) {
+								return { ...wasteObj };
+							}
+							return { ...waste }
+						});
+						return { ...user, waste_history: newWasteArr }
+					}
+					return { ...user }
+				})
+				data.data.users = newArr;
+				const newData = JSON.stringify(data);
+				fs.writeFileSync('./data/data.json', newData, 'utf-8');
+				return args;
+			}
+		},
 	}
 })
 

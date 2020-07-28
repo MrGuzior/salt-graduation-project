@@ -2,11 +2,9 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 import UserGraph from './UserGraph';
 import { gql } from "apollo-boost";
-import {graphql} from 'react-apollo';
-import {flowRight as compose } from 'lodash';
-const { createApolloFetch } = require('apollo-fetch');
+import { graphql } from 'react-apollo';
+import { flowRight as compose } from 'lodash';
 const moment = require('moment');
-
 
 let searchID = "12345";
 
@@ -22,43 +20,6 @@ const getUserQuery = gql`
             }
         }
 }`;
-
-
-
-// const fetch = createApolloFetch({
-//     uri: 'https://localhost:8080/graphql'
-// })
-
-
-// const getUserData = (callback) => {
-//     fetch({
-//         query: `query ($id: String!){
-//             user(id: $id){
-//               id  
-//               name
-//               waste_history{
-//                   type
-//                   date
-//                   amount
-//               }
-//             }
-//         }`,
-//         variables: { id: searchID },
-//     }).then(res => {
-//         callback(res.data)
-//     })
-// };
-
-// const addUserData = (date, type, amount) => {
-//     fetch({
-//         query: `mutation AddWasteToDB($id: String!){
-//             addWaste(date: $date, type: $type, amount: $amount, userId: $id) {
-//                 date
-//             }
-//         }`,
-//         variables: { date: date, type: type, amount: amount, id: searchID },
-//     }).then(res => console.log(res.data))
-// };
 
 const addWasteMutation = gql`
 		mutation($date: String!, $wasteType: String!, $wasteAmount: String!, $userId: String!){
@@ -113,7 +74,7 @@ class Waste extends React.Component {
     }
 
     addWasteToStorage(e) {
-       e.preventDefault();
+        //e.preventDefault();
         const { userID } = this.state;
         const userWasteStorage = JSON.parse(window.localStorage.getItem(userID)) || [];
 
@@ -125,16 +86,16 @@ class Waste extends React.Component {
             timeStamp,
             type,
             amount
-				}
-				
-		this.props.addWasteMutation({
+        }
+
+        this.props.addWasteMutation({
             variables: {
                 date: timeStamp.toString(),
                 wasteType: type,
                 wasteAmount: amount,
                 userId: searchID
             },
-            refetchQueries: [{query: getUserQuery}]
+            // refetchQueries: [{ query: getUserQuery }]
         });
 
         if (amount !== '0' && amount !== '') {
@@ -155,17 +116,14 @@ class Waste extends React.Component {
         const date = data.waste_history.map(obj => obj.date)
 
         this.setState({
-            wasteAmount : amount,
-            wasteDate : date,
+            wasteAmount: amount,
+            wasteDate: date,
             fetched: !this.state.fetched
         })
-        // this.setState({ wasteDate : date})
-        console.log('quack');
     };
-    
+
     render() {
-        if(this.props.data.user && !this.state.fetched){
-            
+        if (this.props.data.user && !this.state.fetched) {
             this.getUserData(this.props.data.user)
         }
         return (
@@ -200,7 +158,7 @@ class Waste extends React.Component {
                         <h2>Total amount of waste {this.state.totalAmountWaste}</h2>
                     </div>
                 </section>
-                {this.state.wasteAmount[0] && this.state.wasteDate[0] ? <UserGraph wasteAmount={this.state.wasteAmount} wasteDate={this.state.wasteDate} /> : null}
+                {this.state.wasteAmount[0] && this.state.wasteDate[0] ? <UserGraph wasteAmount={this.state.wasteAmount} wasteDate={this.state.wasteDate} userID={searchID} /> : null}
 
             </div>
         )
@@ -208,14 +166,16 @@ class Waste extends React.Component {
 
 }
 export default compose(
-	graphql(getUserQuery,{options: () => {
-        return {
-            variables: {
-                id: searchID
+    graphql(getUserQuery, {
+        options: () => {
+            return {
+                variables: {
+                    id: searchID
+                }
             }
         }
-    }}, {name: "getUserQuery"}),
-	graphql(addWasteMutation, {name: "addWasteMutation"})
+    }, { name: "getUserQuery" }),
+    graphql(addWasteMutation, { name: "addWasteMutation" })
 )(Waste);
 
 // export default graphql(addWasteMutation, {name: "addWasteMutation"})(Waste);
