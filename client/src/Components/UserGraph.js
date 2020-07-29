@@ -21,10 +21,6 @@ const updateWasteMutation = gql`
 		}
 `;
 
-const createGraph = () => {
-
-}
-
 class UserGraph extends React.Component {
     constructor(props) {
         super(props)
@@ -80,7 +76,6 @@ class UserGraph extends React.Component {
         window.location.reload();
         console.log(this.props.userID);
         let date = this.props.wasteDate[index];
-        let userId = this.props.userID;
 
         this.props.removeWasteMutation({
             variables: {
@@ -101,7 +96,6 @@ class UserGraph extends React.Component {
         let date = this.props.wasteDate[index];
         let userID = this.props.userID;
         let newAmount = this.state.updateWasteInput[index];
-        let type = 'plastic';
         this.props.updateWasteMutation({
             variables: {
                 date: date,
@@ -119,7 +113,7 @@ class UserGraph extends React.Component {
             wasteList = [...wasteList, <ListGroup.Item as="li" key={i} className='list-item'>
                 <form onSubmit={(e) => { this.updateWaste(i) }} className='list-item-form'>
                     <input type="number" placeholder={this.props.wasteAmount[i]} onChange={(e) => this.updateAmountUpdate(e, i)} value={this.state.updateWasteInput[i]}></input>
-                    <span>{' kg ' + this.props.wasteDate[i]}</span>
+                    <span>{' (kg) ' + this.props.wasteDate[i]}</span>
                     <button onClick={(e) => { this.removeWaste(i) }} className='list-btn'>Remove</button>
 
                     <button type='submit' value={this.props.userID} className='list-btn'>Save</button>

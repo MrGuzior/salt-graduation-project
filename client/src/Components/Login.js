@@ -1,54 +1,40 @@
 import React from 'react';
-import FacebookLogin from 'react-facebook-login';
+// import { CookiesProvider } from 'react-cookie';
+import { Form, Button } from 'react-bootstrap';
 
-const FB = window.FB;
-
-export default class Login extends React.Component {
-    state = {
-        isLoggedIn: false,
-        userID: '',
-        name: '',
-        picture: ''
+class Login extends React.Component {
+    constructor(props) {
+        super(props)
+        this.inputChange = this.inputChange.bind(this);
+        this.state = {
+            name: ''
+        }
     }
-    // logOut = () => {
-    //     FB.logout((res) => window.location.reload());
-    // }
-    // componentClicked = () => console.log('clicked');
 
-    // responseFacebook = res => {
-    //     console.log(res)
-    //     this.setState({
-    //         isLoggedIn: true,
-    //         userID: res.userID,
-    //         name: res.name,
-    //         picture: res.picture.data.url
-    //     })
-    // }
+    inputChange(e) {
+        this.setState({
+            name: e.target.value
+        })
+    }
 
     render() {
-        // let fbContent;
-
-        // if (this.state.isLoggedIn) {
-        //     fbContent = (<div>
-        //         <img src={this.state.picture} alt={this.state.name}></img>
-        //         <h2>Hello {this.state.name}</h2>
-        //     </div>)
-        // } else {
-        //     fbContent = (<FacebookLogin
-        //         appId="1565543970286204"
-        //         autoLoad={true}
-        //         fields="name,picture"
-        //         onClick={this.componentClicked}
-        //         callback={this.responseFacebook} />)
-        // }
         return (
-            <div>
-                {/* {fbContent} */}
-                <div class="fb-login-button" data-size="large" data-button-type="continue_with" data-layout="default"
-                    data-auto-logout-link="false" data-use-continue-as="true" data-width="">
-                </div>
-                {/* <button class="Log-Out" onclick={this.logOut()}>Log-Out</button> */}
+            <div className="login-form">
+                <h1>Register new user</h1>
+                <Form onSubmit={e => this.props.login(e, this.state.name)}>
+                    <Form.Group className='m-3'>
+                        <Form.Control placeholder="Enter username" onChange={(e) => this.inputChange(e)} value={this.state.name} />
+                    </Form.Group>
+                    <Form.Group className='m-3'>
+                        <Form.Control type="password" placeholder="Password" />
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                        Submit
+                    </Button>
+                </Form>
             </div>
         )
     }
 }
+
+export default Login;

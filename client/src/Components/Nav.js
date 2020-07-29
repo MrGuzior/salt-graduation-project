@@ -4,22 +4,20 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
 } from "react-router-dom";
 
-import Home from './Home';
+import Home from './Home-copy';
 import About from './About';
 import Login from './Login';
 import Waste from './Waste';
 import Footer from './Footer'
+import Tips from './Tips';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav as Bnav } from 'react-bootstrap';
 
 export default function Nav(props) {
-    console.log('nav');
     return (
         <Router>
-
             <div>
                 <nav>
                     <div>
@@ -30,10 +28,16 @@ export default function Nav(props) {
                                     <Bnav.Link href="/" id="logo">WASTr</Bnav.Link>
                                     <Bnav.Link href="/waste">Log waste</Bnav.Link>
                                     <Bnav.Link href="/about">About</Bnav.Link>
+                                    <Bnav.Link href="/tips">Recycling Tips</Bnav.Link>
                                 </Bnav>
-                                <Bnav className="ml-auto">
-                                    <Bnav.Link href="/login">Login</Bnav.Link>
-                                </Bnav>
+                                {!props.loggedIn ?
+                                    <Bnav className="ml-auto">
+                                        <Bnav.Link href="/login">Login</Bnav.Link>
+                                    </Bnav> :
+                                    <Bnav onClick={() => props.logout()}>
+                                        <Bnav.Link >Logout</Bnav.Link>
+                                    </Bnav>
+                                }
                             </Navbar.Collapse>
                         </Navbar>
                     </div>
@@ -44,8 +48,11 @@ export default function Nav(props) {
                 <Route exact path='/about'>
                     <About />
                 </Route>
+                <Route exact path='/tips'>
+                    <Tips />
+                </Route>
                 <Route exact path='/login'>
-                    <Login />
+                    <Login login={props.login} />
                 </Route>
                 <Route exact path='/waste'>
                     <Waste userCookie={props.userCookie} />

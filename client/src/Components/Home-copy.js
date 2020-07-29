@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import News from './News';
 import { gql } from "apollo-boost";
 import { graphql } from 'react-apollo';
-const { createApolloFetch } = require('apollo-fetch');
 
 const getArticlesQuery = gql`
 query {
@@ -32,43 +31,6 @@ query {
     }
 }
 `;
-
-const fetch = createApolloFetch({
-    uri: 'https://localhost:8080/graphql'
-})
-
-const userData = (callback) => {
-    fetch({
-        query: `
-    query {
-      global{
-          year
-          tonnes
-      }
-      discarded{
-        year
-        tonnes
-      }
-      incinerated{
-        year
-        tonnes
-      }
-      recycled{
-        year
-        tonnes
-      }
-      news{
-          date
-          heading
-          text
-          source
-      }
-    }`,
-        variables: {},
-    }).then(res => {
-        callback(res.data)
-    })
-};
 
 const createChart = (chart, chartRef, labels, data, description, color) => {
     let dataSets = [];
@@ -117,59 +79,65 @@ class Home extends React.Component {
         super(props)
         this.globalChartRef = React.createRef();
         this.recycleChartRef = React.createRef();
+
         this.state = {
-            news: []
+            news: [],
+            fetched: false
         }
     }
 
-    componentDidMount() {
-        userData((data) => {
-            console.log(data)
-            let wasteAmount = [];
-            let wasteDate = [];
-            let recycleYears = [];
-            let recycledPlastic = [];
-            let incineratedPlastic = [];
-            let discardedPlastic = [];
-            this.setState({ news: data.news })
+    getUserData(data) {
+        let wasteAmount = [];
+        let wasteDate = [];
+        let recycleYears = [];
+        let recycledPlastic = [];
+        let incineratedPlastic = [];
+        let discardedPlastic = [];
+        this.setState({ news: data.news })
 
-            data.global.forEach(element => {
-                wasteAmount.push(element.tonnes);
-                wasteDate.push(element.year);
-            });
-
-            data.discarded.forEach(element => {
-                discardedPlastic.push(element.tonnes);
-            });
-
-            data.incinerated.forEach(element => {
-                incineratedPlastic.push(element.tonnes);
-            });
-
-            data.recycled.forEach(element => {
-                recycleYears.push(element.year);
-                recycledPlastic.push(element.tonnes);
-            });
-
-            createChart(
-                this.globalChart,
-                this.globalChartRef.current,
-                wasteDate, [wasteAmount],
-                ['Global plastics production in tonnes'],
-                ['#46bd66']);
-
-            createChart(
-                this.recycleChart,
-                this.recycleChartRef.current,
-                recycleYears,
-                [recycledPlastic, incineratedPlastic, discardedPlastic],
-                ['Recycled', 'Incinerated', 'Discarded'],
-                ['#46bd66', '#fc5603', '#919191'])
-
+        data.global.forEach(element => {
+            wasteAmount.push(element.tonnes);
+            wasteDate.push(element.year);
         });
-    }
+
+        data.discarded.forEach(element => {
+            discardedPlastic.push(element.tonnes);
+        });
+
+        data.incinerated.forEach(element => {
+            incineratedPlastic.push(element.tonnes);
+        });
+
+        data.recycled.forEach(element => {
+            recycleYears.push(element.year);
+            recycledPlastic.push(element.tonnes);
+        });
+
+        createChart(
+            this.globalChart,
+            this.globalChartRef.current,
+            wasteDate, [wasteAmount],
+            ['Global plastics production in tonnes'],
+            ['#46bd66']);
+
+        createChart(
+            this.recycleChart,
+            this.recycleChartRef.current,
+            recycleYears,
+            [recycledPlastic, incineratedPlastic, discardedPlastic],
+            ['Recycled', 'Incinerated', 'Discarded'],
+            ['#46bd66', '#fc5603', '#919191'])
+
+
+    };
 
     render() {
+        if (!this.props.data.loading && !this.state.fetched) {
+            this.getUserData(this.props.data)
+            this.setState({
+                fetched: !this.state.fetched
+            })
+        }
         return (
             <div className="home-container">
                 <section className="intro-section">
@@ -208,4 +176,5 @@ class Home extends React.Component {
             </div>)
     }
 }
-export default graphql(getArticlesQuery, { name: getArticlesQuery })(Home);
+
+export default graphql(getArticlesQuery)(Home);

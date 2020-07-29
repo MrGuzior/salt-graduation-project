@@ -16,24 +16,35 @@ const addUserMutation = gql`
 `;
 
 function App(props) {
-  const id = uuid.v4();
-  const [cookies, setCookie] = useCookies(['wastr_session']);
-  //const cookie = cookies.wastr_session;
+  let isLoggedIn = false;
+  const [cookies, setCookie, removeCookie] = useCookies(['wastr_session']);
 
-  if (!cookies.wastr_session) {
+  function login(e, name) {
+    e.preventDefault();
+    const id = uuid.v4();
     setCookie('wastr_session', id, { path: '/' });
     props.addUserMutation({
       variables: {
         id: id,
-        name: "Mr. Duck"
+        name: name
       }
     })
+    window.location.assign('/waste')
+  }
+  function logout() {
+    isLoggedIn = false;
+    removeCookie('wastr_session');
+    window.location.assign('/')
+  }
+
+  if (cookies.wastr_session) {
+    isLoggedIn = true;
   }
 
   return (
     <CookiesProvider>
       <div className="App">
-        <Nav userCookie={cookies.wastr_session} />
+        <Nav userCookie={cookies.wastr_session} loggedIn={isLoggedIn} login={login} logout={logout} />
 
       </div>
     </CookiesProvider>

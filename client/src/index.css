@@ -175,3 +175,29 @@ li.list-group-item {
   margin:7% auto;
   width: 50%;
 }
+
+.login-form {
+  max-width: 40%;
+  margin: 30px auto 300px auto;
+  padding: 2%;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.login-form > input.form-control {
+  margin: 3% !important; 
+}
+
+.tips-container{
+  margin: auto;
+  max-width: 50%;
+}
+
+.tip-list{
+  margin:auto;
+  width: 80%;
+}
+
+.tip{
+  margin: 2% auto;
+}

@@ -6,10 +6,6 @@ import { graphql } from 'react-apollo';
 import { flowRight as compose } from 'lodash';
 const moment = require('moment');
 
-let searchID = "12345";
-let cookie;
-
-
 const getUserQuery = gql`
     query($id: String!){
         user(id: $id){
@@ -80,7 +76,7 @@ class Waste extends React.Component {
         const { userID } = this.state;
         const userWasteStorage = JSON.parse(window.localStorage.getItem(userID)) || [];
 
-        const timeStamp = moment(Date.now()).format('MM/DD-YYYY');
+        const timeStamp = moment(Date.now()).format('MM/DD-YYYY HH:mm:ss');
         const type = this.state.inputType;
         const amount = this.state.inputAmount;
 
@@ -125,8 +121,6 @@ class Waste extends React.Component {
     };
 
     render() {
-        cookie = this.props.userCookie;
-
         if (this.props.data.user && !this.state.fetched) {
             this.getUserData(this.props.data.user)
         }
@@ -159,7 +153,6 @@ class Waste extends React.Component {
                             </div>
                             <input type="submit" value="Submit" className="home-btn"></input>
                         </Form>
-                        <h2>Total amount of waste {this.state.totalAmountWaste}</h2>
                     </div>
                 </section>
                 {this.state.wasteAmount[0] && this.state.wasteDate[0] ? <UserGraph wasteAmount={this.state.wasteAmount} wasteDate={this.state.wasteDate} userID={this.state.userID} /> : null}
