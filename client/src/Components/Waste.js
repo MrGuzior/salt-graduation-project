@@ -133,14 +133,14 @@ class Waste extends React.Component {
                             <div className="waste-form">
                                 <Form.Group>
                                     <Form.Label>
-                                        kg:
-                                <Form.Control placeholder="Enter amount of waste" type="number" name="wasteKg" onChange={this.updateInputField}></Form.Control>
+
+                                        <Form.Control placeholder="Enter amount of waste" type="number" name="wasteKg" onChange={this.updateInputField}></Form.Control>
                                     </Form.Label>
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label>
-                                        type:
-                                <Form.Control as="select" onChange={this.updateSelectType} value={this.state.inputType}>
+
+                                        <Form.Control as="select" onChange={this.updateSelectType} value={this.state.inputType}>
                                             <option value="plastic">Plastic</option>
                                             <option value="paper">Paper</option>
                                             <option value="glass">Glass</option>

@@ -132,6 +132,7 @@ label > select {
 }
 .footer-container{
   background-color: white;
+  margin-top: 500px;
 }
 
 #logo {
