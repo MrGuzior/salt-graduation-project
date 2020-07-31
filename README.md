@@ -32,5 +32,11 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
+## Authors and acknowledgment
+Authors: Marie Winther, Konrad Guzior
+We would like to thank all the instructors at </Salt>
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
+
+
