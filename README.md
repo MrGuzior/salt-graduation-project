@@ -1,6 +1,9 @@
 ## Salt graduation project
 Graduation project for salt school of applied technology.
 
+## Screenshots
+![alt text](https://github.com/MrGuzior/salt-graduation-project/blob/master/screenshots/Screenshot_1.png?raw=true)
+
 # WASTr
 An application to help people track their waste in order to minimize it. 
 Track your waste by creating a personal profile, enter the amount of waste 
