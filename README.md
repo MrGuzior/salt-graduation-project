@@ -1,5 +1,10 @@
-# salt-graduation-project
-Graduation project for salt school of applied technology
+## Salt graduation project
+Graduation project for salt school of applied technology.
+
+# WASTr
+An application to help people track their waste in order to minimize it. 
+Track your waste by creating a personal profile, enter the amount of waste 
+you threw out, and see your history in a simple graph.  
 
 ## Installation
 
