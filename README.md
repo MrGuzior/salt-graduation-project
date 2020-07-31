@@ -34,7 +34,7 @@ Please make sure to update tests as appropriate.
 
 ## Authors and acknowledgment
 Authors: Marie Winther, Konrad Guzior
-We would like to thank all the instructors at </Salt>
+We would like to thank all the instructors at Salt School of applied technology.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
